@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio - Samuel Franco | Desarrollador Full Stack Junior</title>
+  <meta name="description" content="Portafolio de Samuel Franco - Desarrollador Junior Full Stack. Proyectos: SOLARA Logistics MVP, Walett FinApp, Office Agent OS.">
+  <meta property="og:title" content="Portafolio - Samuel Franco">
+  <meta property="og:description" content="Desarrollador Junior Full Stack - Medellín, Colombia">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg-card: #1a1a24; --border: #2a2a3a;
+      --fg: #e8e8f0; --fg-muted: #888; --accent: #00d4aa;
+      --accent-hover: #00e8bb; --danger: #ff4d6a; --warning: #ffb800;
+    }
+    body { font-family: "Inter", system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    h1 { color: var(--accent); font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--fg-muted); font-size: 1.1rem; }
+    .links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    .links a:hover { text-decoration: underline; }
+    .projects { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); border-color: var(--accent); }
+    .badge { display: inline-block; background: var(--accent); color: var(--bg); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; width: fit-content; }
+    .card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #fff; }
+    .card p { color: var(--fg-muted); font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1; }
+    .tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .tech span { background: var(--border); color: var(--fg-muted); padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.7rem; font-weight: 500; }
+    .card-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .card-links a { color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.5rem 0.75rem; border: 1px solid transparent; border-radius: 8px; transition: all 0.2s; }
+    .card-links a:hover { text-decoration: none; background: rgba(0,212,170,0.1); border-color: var(--accent); }
+    .card-links a.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .card-links a.primary:hover { background: var(--accent-hover); }
+    .card-links a.disabled { opacity: 0.5; pointer-events: none; }
+    footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 0.85rem; }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
+    .modal.open { display: flex; }
+    .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; }
+    .modal-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h3 { margin: 0; }
+    .modal-close { background: none; border: none; color: var(--fg-muted); font-size: 1.5rem; cursor: pointer; padding: 0.25rem; line-height: 1; }
+    .modal-close:hover { color: var(--fg); }
+    .modal-body { padding: 1.5rem; }
+    .modal-body h4 { margin: 1rem 0 0.5rem; color: var(--accent); font-size: 1rem; }
+    .modal-body ul { margin: 0; padding-left: 1.25rem; }
+    .modal-body li { margin: 0.5rem 0; color: var(--fg-muted); }
+    .modal-body a { color: var(--accent); }
+    .release-item { padding: 0.75rem; background: var(--bg); border-radius: 8px; margin: 0.5rem 0; border: 1px solid var(--border); }
+    .release-item .version { font-weight: 700; color: var(--accent); }
+    .release-item .date { font-size: 0.8rem; color: var(--fg-muted); }
+    .release-item .notes { margin-top: 0.5rem; font-size: 0.85rem; color: var(--fg); }
+    @media (max-width: 600px) {
+      .card-links { flex-direction: column; }
+      .card-links a { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Samuel Franco</h1>
+      <p class="subtitle">Desarrollador Junior Full Stack — Medellín, Colombia</p>
+      <div class="links">
+        <a href="https://github.com/SamuelHfranco" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/samuelfranco" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:samuel@franco.dev">Email</a>
+      </div>
+    </header>
+
+    <section class="projects">
+      <!-- Proyecto 1: SOLARA -->
+      <article class="card">
+        <span class="badge">Proyecto Grado</span>
+        <h3>SOLARA Logistics MVP</h3>
+        <p>Plataforma logística multi-rol (Admin, Tienda/Cliente, Repartidor) con tracking en tiempo real, optimización de rutas y agente IA SOFIA. Basado en arquitectura fleetbase/fleetbase adaptada a tesis de maestría.</p>
+        <div class="tech">
+          <span>Laravel 11</span><span>React 18</span><span>Tailwind</span><span>MySQL</span><span>Redis</span><span>Docker</span><span>Sanctum</span><span>Chart.js</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/SamuelHfranco/solara-logistics-mvp" target="_blank" rel="noopener">📁 Repositorio</a>
+          <a href="https://github.com/SamuelHfranco/solara-logistics-mvp/releases" target="_blank" rel="noopener" class="disabled">📦 Releases</a>
+          <button class="primary" onclick="openModal('solara-modal')">📄 Ver Docs</button>
+        </div>
+      </article>
+
+      <!-- Proyecto 2: Walett -->
+      <article class="card">
+        <span class="badge">FinApp</span>
+        <h3>Walett - Finanzas Personales</h3>
+        <p>App de finanzas con entrada por voz (IA Gemini), importación bancaria, metas de ahorro, recordatorios, cifrado local y cumplimiento Ley 1581 (Habeas Data). MVP funcional pulido para lanzamiento.</p>
+        <div class="tech">
+          <span>React 19</span><span>Vite</span><span>Firebase</span><span>Tailwind</span><span>i18n</span><span>Gemini AI</span><span>PWA</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/SamuelHfranco/walett.app" target="_blank" rel="noopener">📁 Repositorio</a>
+          <a href="https://github.com/SamuelHfranco/walett.app/releases" target="_blank" rel="noopener" class="disabled">📦 Releases</a>
+          <a href="https://walett.app" target="_blank" rel="noopener" class="primary">🌐 Demo Live</a>
+          <button onclick="openModal('walett-modal')">📄 Ver Docs</button>
+        </div>
+      </article>
+
+      <!-- Proyecto 3: Office Agent OS -->
+      <article class="card">
+        <span class="badge">Office Agent OS</span>
+        <h3>Office Agent OS</h3>
+        <p>Sistema operativo agente para automatización administrativa (tasks, docs, emails, calendar). Fork público adaptado de fleetbase/fleetbase, optimizado para desarrolladores junior. Stack React + Laravel.</p>
+        <div class="tech">
+          <span>Laravel</span><span>React</span><span>Tailwind</span><span>Docker</span><span>Agentes IA</span><span>Automatización</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/SamuelHfranco/office-agent-os" target="_blank" rel="noopener">📁 Repositorio</a>
+          <a href="https://github.com/SamuelHfranco/office-agent-os/releases" target="_blank" rel="noopener" class="disabled">📦 Releases</a>
+          <button class="primary" onclick="openModal('office-modal')">📄 Ver Docs</button>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <p>Construido con React, Laravel, Docker y mucho café ☕ — 2026</p>
+    </footer>
+  </div>
+
+  <!-- MODAL SOLARA -->
+  <div id="solara-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>SOLARA Logistics MVP — Documentación</h3>
+        <button class="modal-close" onclick="closeModal('solara-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>📥 Descargas</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/solara-logistics-mvp/raw/main/README.md" download>README.md</a></li>
+          <li><a href="https://github.com/SamuelHfranco/solara-logistics-mvp/tree/main/api" target="_blank">API Laravel (docs/)</a></li>
+          <li><a href="https://github.com/SamuelHfranco/solara-logistics-mvp/tree/main/docker" target="_blank">Configuración Docker</a></li>
+        </ul>
+        <h4>🔗 Enlaces del Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/solara-logistics-mvp" target="_blank">Repositorio GitHub</a></li>
+          <li><a href="https://github.com/SamuelHfranco/fleetbas-solara2.0" target="_blank">Fork Base (fleetbase/fleetbase)</a></li>
+          <li><a href="https://github.com/SamuelHfranco/solara-logistics-mvp/wiki" target="_blank">Wiki del Proyecto</a></li>
+        </ul>
+        <h4>📦 Releases</h4>
+        <div class="release-item">
+          <div class="version">v0.1.0 - MVP Inicial</div>
+          <div class="date">Noviembre 2026</div>
+          <div class="notes">Estructura base multi-rol (Admin, Store, Driver), Docker Compose completo, API Laravel 11 + Sanctum, 3 Apps React + Vite + Tailwind.</div>
+        </div>
+        <div class="release-item">
+          <div class="version">v0.2.0 - Próximo</div>
+          <div class="date">En desarrollo</div>
+          <div class="notes">WebSockets para tracking real-time, MapBox/Leaflet, Notificaciones push, Agente IA SOFIA, Tests PHPUnit + Vitest, CI/CD GitHub Actions.</div>
+        </div>
+        <h4>🚀 Deploy Local</h4>
+        <pre style="background:var(--bg);padding:1rem;border-radius:8px;overflow:auto;font-size:0.8rem;"><code>cd solara-logistics-mvp
+docker-compose up -d --build</code></pre>
+        <p style="font-size:0.85rem;color:var(--fg-muted);margin-top:0.5rem;">Puertos: API 8000 | Admin 4200 | Store 4201 | Driver 4202</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL WALLET -->
+  <div id="walett-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Walett - Finanzas Personales — Documentación</h3>
+        <button class="modal-close" onclick="closeModal('walett-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>📥 Descargas</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/walett.app/raw/main/README.md" download>README.md</a></li>
+          <li><a href="https://github.com/SamuelHfranco/walett.app/blob/main/SECURITY.md" target="_blank">SECURITY.md (Política seguridad)</a></li>
+          <li><a href="https://github.com/SamuelHfranco/walett.app/blob/main/LICENSE" target="_blank">LICENSE (Apache 2.0)</a></li>
+        </ul>
+        <h4>🔗 Enlaces del Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/walett.app" target="_blank">Repositorio GitHub</a></li>
+          <li><a href="https://walett.app" target="_blank">Demo Live (Vercel)</a></li>
+          <li><a href="https://github.com/SamuelHfranco/walett.app/wiki" target="_blank">Wiki del Proyecto</a></li>
+        </ul>
+        <h4>📦 Releases</h4>
+        <div class="release-item">
+          <div class="version">v0.1.0 - MVP Core</div>
+          <div class="date">Noviembre 2026</div>
+          <div class="notes">React 19 + Vite + Firebase + Tailwind + Gemini AI. Entrada por voz, importación CSV, metas de ahorro, redondeo inteligente, recordatorios, cifrado local, i18n (ES/EN), PWA ready.</div>
+        </div>
+        <div class="release-item">
+          <div class="version">v0.2.0 - Próximo</div>
+          <div class="date">En desarrollo</div>
+          <div class="notes">Plan Pro: OCR recibos, alertas gastos hormiga, simulador escenarios, impuestos (predial/renta), Google Calendar/Sheets sync, multi-moneda, gamificación.</div>
+        </div>
+        <h4>🛡️ Seguridad</h4>
+        <ul>
+          <li>0 vulnerabilidades (npm audit clean)</li>
+          <li>Firebase v13.4.0 | Vite v6.4.6 | grpc-js v1.14.7 (override)</li>
+          <li>Cifrado local, Habeas Data Ley 1581, sin credenciales bancarias</li>
+        </ul>
+        <h4>🚀 Deploy</h4>
+        <pre style="background:var(--bg);padding:1rem;border-radius:8px;overflow:auto;font-size:0.8rem;"><code>cd walett.app
+npm install
+npm run build
+vercel --prod</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL OFFICE -->
+  <div id="office-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Office Agent OS — Documentación</h3>
+        <button class="modal-close" onclick="closeModal('office-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>📥 Descargas</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/office-agent-os/raw/main/README.md" download>README.md</a></li>
+          <li><a href="https://github.com/SamuelHfranco/office-agent-os/tree/main/api" target="_blank">API Laravel + OpenAI</a></li>
+          <li><a href="https://github.com/SamuelHfranco/office-agent-os/tree/main/docker" target="_blank">Configuración Docker</a></li>
+        </ul>
+        <h4>🔗 Enlaces del Proyecto</h4>
+        <ul>
+          <li><a href="https://github.com/SamuelHfranco/office-agent-os" target="_blank">Repositorio GitHub</a></li>
+          <li><a href="https://github.com/fleetbase/fleetbase" target="_blank">Fork Base (fleetbase/fleetbase)</a></li>
+          <li><a href="https://github.com/SamuelHfranco/office-agent-os/wiki" target="_blank">Wiki del Proyecto</a></li>
+        </ul>
+        <h4>📦 Releases</h4>
+        <div class="release-item">
+          <div class="version">v0.1.0 - Fork Adaptado</div>
+          <div class="date">Noviembre 2026</div>
+          <div class="notes">Arquitectura multi-rol (Admin, Client, Worker), Laravel 11 + OpenAI, 3 Apps React, Docker Compose puertos 8001/4210-4212, 5 agentes IA (Email, Calendar, Docs, Reports, System).</div>
+        </div>
+        <div class="release-item">
+          <div class="version">v0.2.0 - Próximo</div>
+          <div class="date">En desarrollo</div>
+          <div class="notes">Integración real OpenAI/Anthropic, WebSockets logs real-time, Marketplace agentes, Visual workflow builder, Google Workspace / MS365, Tests + CI/CD.</div>
+        </div>
+        <h4>🤖 Agentes IA Incluidos</h4>
+        <ul>
+          <li><strong>Email Agent</strong> (GPT-4 Turbo): Procesa bandeja, responde plantillas, clasifica</li>
+          <li><strong>Calendar Agent</strong> (Claude 3): Agenda reuniones, evita conflictos, recordatorios</li>
+          <li><strong>Doc Agent</strong> (GPT-4 Vision): OCR, extracción datos, clasificación, renombrado</li>
+          <li><strong>Report Bot</strong> (GPT-4): Reportes semanales/mensuales, gráficos, insights</li>
+          <li><strong>System Agent</strong> (Local Script): Backups, limpieza logs, monitoreo salud</li>
+        </ul>
+        <h4>🚀 Deploy Local</h4>
+        <pre style="background:var(--bg);padding:1rem;border-radius:8px;overflow:auto;font-size:0.8rem;"><code>cd office-agent-os
+docker-compose up -d --build</code></pre>
+        <p style="font-size:0.85rem;color:var(--fg-muted);margin-top:0.5rem;">Puertos: API 8001 | Admin 4210 | Client 4211 | Worker 4212</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal(modal.id);
+      });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(m => closeModal(m.id));
+    });
+  </script>
+</body>
+</html>
